@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier", "stylelint-config-styled-components"],
   "overrides": [
     {
       "files": ["**/*.scss"],
