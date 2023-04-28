@@ -35,7 +35,6 @@ Then to run this project
 ## File Structure
 
 
-
 ```
 src
 ├── features
@@ -43,11 +42,13 @@ src
 │   │   │ 
 │   │   ├── components
 │   │   │     └── Counter.tsx  
-│   │   ├── swr
-│   │   │     └── index.ts  
-│   │   ├── ErrorPage.tsx
-│   │   ├── List.tsx
-│   │   └── Profile.tsx
+│   │   ├── hooks
+│   │   │     └── Swr.ts  
+│   │   ├── pages  
+│   │   │     ├── ErrorPage.tsx
+│   │   │     ├── List.tsx
+│   │   │     └── Profile.tsx
+│   │   └── index.ts
 ├── routes
 │   └── index.tsx
 ├── utils
