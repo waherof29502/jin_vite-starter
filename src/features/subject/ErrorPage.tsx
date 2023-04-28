@@ -6,8 +6,8 @@ export default function ErrorPage() {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div id="error-page">
-        <h1>Oops!</h1>
+      <div>
+        <h1>router出事拉!!</h1>
         <p>發生錯誤</p>
         <p>
           <i>{error.statusText}</i>
@@ -15,5 +15,5 @@ export default function ErrorPage() {
       </div>
     );
   }
-  return <div>Oops</div>;
+  return <div>出事拉!!</div>;
 }
