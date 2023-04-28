@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -19,6 +20,7 @@ for (let i = 0; i < 4; i++) {
 console.log(data);
 
 export default function List() {
+  const [selectedProfile, setSelectedProfile] = useState(0);
   return (
     <MainContainer>
       <GridContainer>
@@ -28,12 +30,15 @@ export default function List() {
             <InfoContainer>
               <CardInfo>{item.name}</CardInfo>
             </InfoContainer>
+            <Link to={`1/profile`}>
+              <button onClick={() => console.log(123)}>123</button>
+            </Link>
           </Card>
         ))}
       </GridContainer>
 
       <Outlet />
-      <Profile />
+      {/* <Profile /> */}
     </MainContainer>
   );
 }
@@ -46,7 +51,6 @@ export const MainContainer = styled.section`
   margin: 0 auto;
   overflow-y: scroll;
 `;
-
 export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -55,7 +59,6 @@ export const GridContainer = styled.div`
   column-gap: 1rem;
   row-gap: 4rem;
 `;
-
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
