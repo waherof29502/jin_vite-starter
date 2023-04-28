@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Counter } from './components/Counter';
+import { Counter } from '../components/Counter';
+import { useAddProfileInfo, useHeroProfile } from '../hooks/Swr';
 
 const Profile = () => {
+  // const { data, isValidating, mutate: refetchSingleParkingSpace } = useSingleParkingSpaceStatus(id);
+  const { id } = useParams();
+  const { data: HeroProfile } = useHeroProfile(id);
+
+  console.log('this is profile', HeroProfile);
+  const { trigger } = useAddProfileInfo(id);
   const [countStr, setCountStr] = useState(0);
   const [countInt, setCountInt] = useState(0);
   const [countAgi, setCountAgi] = useState(0);
   const [countLuk, setCountLuk] = useState(0);
   const [profileSum, setProfileSum] = useState(0);
-  const profileData = [countStr, countInt, countAgi, countLuk];
-  // console.log('Data', profileData);
-  console.log('Sum', profileSum);
+  console.log('count', countAgi);
+  // const profileData = [countStr, countInt, countAgi, countLuk];
+  useEffect(() => {
+    if (HeroProfile) {
+      setCountStr(HeroProfile?.str);
+      setCountInt(HeroProfile?.int);
+      setCountAgi(HeroProfile?.agi);
+      setCountLuk(HeroProfile?.luk);
+    }
+    setProfileSum(0);
+  }, [HeroProfile]);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
   };
-  const handleSubmit = () => {
-    setProfileSum(countStr + countInt + countAgi + countLuk);
-    console.log('Submit', {
+
+  const handleSubmit = async () => {
+    await trigger({
       str: countStr,
       int: countInt,
       agi: countAgi,
       luk: countLuk
     });
+    setProfileSum(countStr + countInt + countAgi + countLuk);
   };
-  //might for data res (GET)
-  // useEffect(() => {
-  //   setProfileSum(countStr + countInt + countAgi + countLuk);
-  // }, [data]);
 
   return (
     <FormWrapper onSubmit={onSubmit}>

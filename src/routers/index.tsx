@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider as RP } from 'react-router-dom';
 
-import ErrorPage from '../features/subject/ErrorPage';
-import List from '../features/subject/List';
-import Profile from '../features/subject/Profile';
+import ErrorPage from '../features/subject/pages/ErrorPage';
+import List from '../features/subject/pages/List';
+import Profile from '../features/subject/pages/Profile';
 const router = createBrowserRouter([
   {
     path: '/',

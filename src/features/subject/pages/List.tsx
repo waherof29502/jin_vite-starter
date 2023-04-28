@@ -2,36 +2,25 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { img } from '../../assets/index';
-import Profile from './Profile';
-
-interface IList {
-  id: number;
-  name: string;
-}
-const data: IList[] = [];
-for (let i = 0; i < 4; i++) {
-  const item = {
-    id: i + 1,
-    name: `User ${i + 1}`
-  };
-  data[i] = item;
-}
-console.log(data);
+import { useListHeroes } from '../hooks/Swr';
 
 export default function List() {
-  const [selectedProfile, setSelectedProfile] = useState(0);
+  const [clickedId, setClickedId] = useState<number | null>(null);
+  const { data: HeroList } = useListHeroes();
+  const handleClick = (id: number) => {
+    setClickedId(clickedId === id ? null : id);
+  };
+
   return (
     <MainContainer>
       <GridContainer>
-        {data.map((item) => (
-          <Card key={item.id}>
-            <Img src={img} />
-            <InfoContainer>
-              <CardInfo>{item.name}</CardInfo>
-            </InfoContainer>
-            <Link to={`1/profile`}>
-              <button onClick={() => console.log(123)}>123</button>
+        {HeroList?.map((item, id) => (
+          <Card key={item.id} className={clickedId === id ? 'clicked' : ''} onClick={() => handleClick(id)}>
+            <Link to={`${item.id}/profile`}>
+              <Img src={item.image} />
+              <InfoContainer>
+                <CardInfo>{item.name}</CardInfo>
+              </InfoContainer>
             </Link>
           </Card>
         ))}
@@ -53,7 +42,7 @@ export const MainContainer = styled.section`
 `;
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 5rem;
   place-items: center;
   column-gap: 1rem;
@@ -71,10 +60,15 @@ export const Card = styled.div`
   &:hover {
     background-color: #f2f;
   }
+  a:link {
+    text-decoration: none;
+  }
+  &.clicked {
+    background-color: #f2f;
+  }
 `;
 export const Img = styled.img`
   width: 100%;
-  height: 100%;
   object-fit: cover;
   overflow: hidden;
 `;
