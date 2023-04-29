@@ -39,7 +39,12 @@ const Profile = () => {
       });
       setProfileSum(countStr + countInt + countAgi + countLuk);
     } catch (e) {
-      setProfileSum(HeroProfile?.data.str + HeroProfile?.data.int + HeroProfile?.data.agi + HeroProfile?.data.luk);
+      setProfileSum(
+        parseInt(`${HeroProfile?.data.str}`) +
+          parseInt(`${HeroProfile?.data.int}`) +
+          parseInt(`${HeroProfile?.data.agi}`) +
+          parseInt(`${HeroProfile?.data.luk}`)
+      );
       console.error(e);
     }
   };

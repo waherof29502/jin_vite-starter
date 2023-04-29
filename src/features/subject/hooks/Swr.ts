@@ -36,7 +36,7 @@ interface IHeroProfile {
 // https://hahow-recruit.herokuapp.com/heroes/:heroId/profile
 // GET /heroes/:heroId/profile with swr
 export function useHeroProfile(id?: IUseListHeroes['id'] | string) {
-  return useSWR(`/heroes/${id}/profile`, async (url) => {
+  return useSWR<{ data: IHeroProfile }, Error, string | null>(`/heroes/${id}/profile`, async (url) => {
     const res = await client.get(url);
     return res;
   });
