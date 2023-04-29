@@ -27,7 +27,6 @@ export default function List() {
       </GridContainer>
 
       <Outlet />
-      {/* <Profile /> */}
     </MainContainer>
   );
 }
@@ -58,13 +57,13 @@ export const Card = styled.div`
   width: 80%;
   max-width: 400px;
   &:hover {
-    background-color: #f2f;
+    background-color: #009590;
   }
   a:link {
     text-decoration: none;
   }
   &.clicked {
-    background-color: #f2f;
+    background-color: #009590;
   }
 `;
 export const Img = styled.img`

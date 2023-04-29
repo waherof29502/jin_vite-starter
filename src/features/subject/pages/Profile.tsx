@@ -6,25 +6,21 @@ import { Counter } from '../components/Counter';
 import { useAddProfileInfo, useHeroProfile } from '../hooks/Swr';
 
 const Profile = () => {
-  // const { data, isValidating, mutate: refetchSingleParkingSpace } = useSingleParkingSpaceStatus(id);
   const { id } = useParams();
   const { data: HeroProfile } = useHeroProfile(id);
-
-  console.log('this is profile', HeroProfile);
   const { trigger } = useAddProfileInfo(id);
   const [countStr, setCountStr] = useState(0);
   const [countInt, setCountInt] = useState(0);
   const [countAgi, setCountAgi] = useState(0);
   const [countLuk, setCountLuk] = useState(0);
   const [profileSum, setProfileSum] = useState(0);
-  console.log('count', countAgi);
-  // const profileData = [countStr, countInt, countAgi, countLuk];
+
   useEffect(() => {
     if (HeroProfile) {
-      setCountStr(HeroProfile?.str);
-      setCountInt(HeroProfile?.int);
-      setCountAgi(HeroProfile?.agi);
-      setCountLuk(HeroProfile?.luk);
+      setCountStr(HeroProfile?.data.str);
+      setCountInt(HeroProfile?.data.int);
+      setCountAgi(HeroProfile?.data.agi);
+      setCountLuk(HeroProfile?.data.luk);
     }
     setProfileSum(0);
   }, [HeroProfile]);
@@ -34,13 +30,18 @@ const Profile = () => {
   };
 
   const handleSubmit = async () => {
-    await trigger({
-      str: countStr,
-      int: countInt,
-      agi: countAgi,
-      luk: countLuk
-    });
-    setProfileSum(countStr + countInt + countAgi + countLuk);
+    try {
+      await trigger({
+        str: countStr,
+        int: countInt,
+        agi: countAgi,
+        luk: countLuk
+      });
+      setProfileSum(countStr + countInt + countAgi + countLuk);
+    } catch (e) {
+      setProfileSum(HeroProfile?.data.str + HeroProfile?.data.int + HeroProfile?.data.agi + HeroProfile?.data.luk);
+      console.error(e);
+    }
   };
 
   return (
@@ -85,7 +86,7 @@ const FormWrapper = styled.form`
 
 const Button = styled.button`
   padding: 10px;
-  background-color: #f2f;
+  background-color: #009590;
   border: none;
   border-radius: 5px;
   cursor: pointer;

@@ -38,7 +38,7 @@ export const ListTitle = styled.h4`
 const Button = styled.button`
   padding: 10px;
   font-size: 16px;
-  background-color: #f2f;
+  background-color: #009590;
   color: #fff;
   border: none;
   border-radius: 5px;
