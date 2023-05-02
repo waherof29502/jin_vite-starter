@@ -26,7 +26,7 @@ const Profile = () => {
     setProfileSum(0);
   }, [HeroProfile]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
   };
 
