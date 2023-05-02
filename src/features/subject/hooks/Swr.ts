@@ -41,17 +41,17 @@ export function useHeroProfile(id?: IUseListHeroes['id'] | string) {
     return res;
   });
 }
-interface ISubmitInfo {
-  str: number;
-  int: number;
-  agi: number;
-  luk: number;
-}
+// interface ISubmitInfo {
+//   str: number;
+//   int: number;
+//   agi: number;
+//   luk: number;
+// }
 
 //https://hahow-recruit.herokuapp.com/heroes/:heroId/profile
 //PATCH with mutation
 export function useAddProfileInfo(id?: IUseListHeroes['id'] | string) {
-  return useSWRMutation<IUseListHeroes, Error, string, ISubmitInfo>(`/heroes/${id}/profile`, async (url, { arg }) => {
+  return useSWRMutation<IUseListHeroes, Error, string, IHeroProfile>(`/heroes/${id}/profile`, async (url, { arg }) => {
     const res = await client.patch(url, arg);
     return res.data;
   });

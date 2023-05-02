@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Counter = ({ count, setCount }: any) => {
+interface ICounter {
+  count: number;
+  setCount: (count: number) => void;
+}
+
+export const Counter = ({ count, setCount }: ICounter) => {
   const handleIncrement = () => {
     setCount(count + 1);
   };
