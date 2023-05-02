@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider as RP } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider as Routers } from 'react-router-dom';
 
 import ErrorPage from '../features/subject/pages/ErrorPage';
 import List from '../features/subject/pages/List';
@@ -18,5 +18,5 @@ const router = createBrowserRouter([
 ]);
 
 export const RouterProvider = () => {
-  return <RP router={router} />;
+  return <Routers router={router} />;
 };

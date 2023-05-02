@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import { Counter } from '../components/Counter';
@@ -38,6 +39,7 @@ const Profile = () => {
         luk: countLuk
       });
       setProfileSum(countStr + countInt + countAgi + countLuk);
+      toast.success('更新成功');
     } catch (e) {
       setProfileSum(
         parseInt(`${HeroProfile?.data.str}`) +
@@ -46,6 +48,7 @@ const Profile = () => {
           parseInt(`${HeroProfile?.data.luk}`)
       );
       console.error(e);
+      toast.error('更新失敗，能力值需相同');
     }
   };
 

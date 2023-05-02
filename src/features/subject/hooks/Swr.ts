@@ -33,6 +33,7 @@ interface IHeroProfile {
   agi: number;
   luk: number;
 }
+
 // https://hahow-recruit.herokuapp.com/heroes/:heroId/profile
 // GET /heroes/:heroId/profile with swr
 export function useHeroProfile(id?: IUseListHeroes['id'] | string) {
