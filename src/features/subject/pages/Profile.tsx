@@ -25,6 +25,13 @@ const Profile = () => {
     }
     setProfileSum(0);
   }, [HeroProfile]);
+  const heroSum =
+    parseInt(`${HeroProfile?.data.str}`) +
+    parseInt(`${HeroProfile?.data.int}`) +
+    parseInt(`${HeroProfile?.data.agi}`) +
+    parseInt(`${HeroProfile?.data.luk}`);
+  const currSum = countStr + countInt + countAgi + countLuk;
+  const resPoint = heroSum - currSum;
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -72,7 +79,9 @@ const Profile = () => {
           <Counter count={countLuk} setCount={setCountLuk} />
         </CounterContainer>
         <TextContainer>
-          <ListTitle>剩餘點數：{profileSum}</ListTitle>
+          <ListTitle>
+            剩餘點數： {resPoint}/{profileSum}
+          </ListTitle>
         </TextContainer>
         <ButtonContainer>
           <Button onClick={() => handleSubmit()}>
