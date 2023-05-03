@@ -15,21 +15,23 @@ const Profile = () => {
   const [countAgi, setCountAgi] = useState(0);
   const [countLuk, setCountLuk] = useState(0);
   const [profileSum, setProfileSum] = useState(0);
-
+  const [heroSum, setHeroSum] = useState(0);
   useEffect(() => {
     if (HeroProfile) {
       setCountStr(HeroProfile?.data.str);
       setCountInt(HeroProfile?.data.int);
       setCountAgi(HeroProfile?.data.agi);
       setCountLuk(HeroProfile?.data.luk);
+      setHeroSum(
+        parseInt(`${HeroProfile?.data.str}`) +
+          parseInt(`${HeroProfile?.data.int}`) +
+          parseInt(`${HeroProfile?.data.agi}`) +
+          parseInt(`${HeroProfile?.data.luk}`)
+      );
     }
     setProfileSum(0);
   }, [HeroProfile]);
-  const heroSum =
-    parseInt(`${HeroProfile?.data.str}`) +
-    parseInt(`${HeroProfile?.data.int}`) +
-    parseInt(`${HeroProfile?.data.agi}`) +
-    parseInt(`${HeroProfile?.data.luk}`);
+
   const currSum = countStr + countInt + countAgi + countLuk;
   const resPoint = heroSum - currSum;
 
@@ -80,7 +82,7 @@ const Profile = () => {
         </CounterContainer>
         <TextContainer>
           <ListTitle>
-            剩餘點數： {resPoint}/{profileSum}
+            剩餘點數： {resPoint}/{heroSum}
           </ListTitle>
         </TextContainer>
         <ButtonContainer>
