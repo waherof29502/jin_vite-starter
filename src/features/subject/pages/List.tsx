@@ -2,29 +2,34 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useListHeroes } from '../hooks/Swr';
+import { useListHeroes } from '../api/react-query';
+// import { useListHeroes } from '../hooks/Swr';
 
 export default function List() {
   const [clickedId, setClickedId] = useState<number | null>(null);
-  const { data: HeroList } = useListHeroes();
+  const { data: HeroList, isLoading } = useListHeroes();
   const handleClick = (id: number) => {
     setClickedId(clickedId === id ? null : id);
   };
 
   return (
     <MainContainer>
-      <GridContainer>
-        {HeroList?.map((item, id) => (
-          <Card key={item.id} className={clickedId === id ? 'clicked' : ''} onClick={() => handleClick(id)}>
-            <Link to={`${item.id}/profile`}>
-              <Img src={item.image} />
-              <InfoContainer>
-                <CardInfo>{item.name}</CardInfo>
-              </InfoContainer>
-            </Link>
-          </Card>
-        ))}
-      </GridContainer>
+      {isLoading ? (
+        'Content is loading'
+      ) : (
+        <GridContainer>
+          {HeroList?.map((item, id) => (
+            <Card key={item.id} className={clickedId === id ? 'clicked' : ''} onClick={() => handleClick(id)}>
+              <Link to={`${item.id}/profile`}>
+                <Img src={item.image} />
+                <InfoContainer>
+                  <CardInfo>{item.name}</CardInfo>
+                </InfoContainer>
+              </Link>
+            </Card>
+          ))}
+        </GridContainer>
+      )}
 
       <Outlet />
     </MainContainer>
