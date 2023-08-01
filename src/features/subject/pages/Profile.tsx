@@ -4,18 +4,22 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import { Counter } from '../components/Counter';
-import { useAddProfileInfo, useHeroProfile } from '../hooks/Swr';
+// import { useAddProfileInfo, useHeroProfile } from '../hooks/useSwr';
+import { useAddProfileInfo, useHeroProfile } from '../hooks/useReactQuery';
 
 const Profile = () => {
   const { id } = useParams();
   const { data: HeroProfile } = useHeroProfile(id);
-  const { trigger } = useAddProfileInfo(id);
+  // const { trigger } = useAddProfileInfo(id);
+  const { mutate, isSuccess, isError } = useAddProfileInfo(id);
+
   const [countStr, setCountStr] = useState(0);
   const [countInt, setCountInt] = useState(0);
   const [countAgi, setCountAgi] = useState(0);
   const [countLuk, setCountLuk] = useState(0);
   const [profileSum, setProfileSum] = useState(0);
   const [heroSum, setHeroSum] = useState(0);
+
   useEffect(() => {
     if (HeroProfile) {
       setCountStr(HeroProfile?.data.str);
@@ -40,24 +44,16 @@ const Profile = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      await trigger({
-        str: countStr,
-        int: countInt,
-        agi: countAgi,
-        luk: countLuk
-      });
-      setProfileSum(countStr + countInt + countAgi + countLuk);
+    await mutate({
+      str: countStr,
+      int: countInt,
+      agi: countAgi,
+      luk: countLuk
+    });
+
+    setProfileSum(countStr + countInt + countAgi + countLuk);
+    if (isSuccess) {
       toast.success('更新成功');
-    } catch (e) {
-      setProfileSum(
-        parseInt(`${HeroProfile?.data.str}`) +
-          parseInt(`${HeroProfile?.data.int}`) +
-          parseInt(`${HeroProfile?.data.agi}`) +
-          parseInt(`${HeroProfile?.data.luk}`)
-      );
-      console.error(e);
-      toast.error('更新失敗，能力值需相同');
     }
   };
 

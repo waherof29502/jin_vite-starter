@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useListHeroes } from '../api/react-query';
+import { useListHeroes } from '../hooks/useReactQuery';
 // import { useListHeroes } from '../hooks/Swr';
 
 export default function List() {
   const [clickedId, setClickedId] = useState<number | null>(null);
-  const { data: HeroList, isLoading } = useListHeroes();
+  const { data: HeroList, isLoading, isError } = useListHeroes();
   const handleClick = (id: number) => {
     setClickedId(clickedId === id ? null : id);
   };
